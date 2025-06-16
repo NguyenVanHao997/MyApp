@@ -16,7 +16,6 @@
     "e2e:build-android-release": "yarn android:clean && detox build -c android.emu.release",
     "e2e:test-android-debug": "detox test -c android.emu.debug",
     "e2e:test-android-release": "detox test -c android.emu.release",
-    "prepare": "husky install",
     "test": "jest --config jest.config.js",
     "test:coverage": "jest --coverage",
     "e2e:build-att-debug": "yarn android:clean && detox build -c android.att.debug",
