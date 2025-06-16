@@ -22,7 +22,8 @@
     "e2e:test-att-debug": "detox test -c android.att.debug",
     "test:coverage-all": "yarn test:coverage-check-strict && yarn test:coverage-report && node scripts/coverage-warning.js",
     "test:coverage-check-strict": "jest --coverage --coverageThreshold='{ \"global\": { \"functions\": 80, \"statements\": 80 } }'",
-    "test:coverage-report": "jest --coverage"
+    "test:coverage-report": "jest --coverage",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
