@@ -1,6 +1,6 @@
 import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {navigate} from '../utils/NavigationUtils';
+import {navigate} from '../utils/NavigationUtil';
 
 const HomeScreen = () => {
   return (

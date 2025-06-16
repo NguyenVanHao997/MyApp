@@ -46,7 +46,7 @@ module.exports = {
     attached: {
       type: 'android.attached',
       device: {
-        adbName: '.*',
+        adbName: 'AMR00204288',
       },
     },
     emulator: {
@@ -81,5 +81,18 @@ module.exports = {
       device: 'emulator',
       app: 'android.release',
     },
+  },
+  behavior: {
+    init: {
+      exposeGlobals: true,
+      reinstallApp: true,
+      launchApp: true,
+    },
+    launchApp: 'auto',
+  },
+  session: {
+    autoStart: true,
+    server: 'ws://localhost:8099',
+    debugSynchronization: 30000,
   },
 };
