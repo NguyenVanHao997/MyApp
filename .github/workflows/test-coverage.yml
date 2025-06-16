@@ -1,4 +1,4 @@
-name: Run Tests and Check Coverage
+name: Check Test Coverage
 
 on:
   pull_request:
@@ -7,23 +7,39 @@ on:
 
 jobs:
   test:
+    name: Run Tests and Check Coverage
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: 🟩 Use Node.js 18
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: yarn
+          node-version: '18'
 
-      - name: 📦 Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-      - name: 🧪 Run tests with coverage
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Run tests with coverage
         run: yarn test:coverage
 
-      - name: 📊 Check coverage threshold
-        run: node checkCoverage.js
+      - name: Check coverage threshold
+        run: |
+          COVERAGE=$(node checkCoverage.js)
+          echo "Coverage is $COVERAGE%"
+          if [ "$COVERAGE" -lt 80 ]; then
+            echo "❌ Coverage is too low: $COVERAGE%. Required: >= 80%."
+            exit 1
+          else
+            echo "✅ Coverage is sufficient."
+          fi
