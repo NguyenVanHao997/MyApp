@@ -12,7 +12,7 @@ const HomeScreen = () => {
         testID="go_back_home">
         <Text>Back</Text>
       </TouchableOpacity>
-      <Text>HomeScreen</Text>
+      <Text>HomeScreen 123</Text>
     </View>
   );
 };

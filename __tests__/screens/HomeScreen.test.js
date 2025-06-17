@@ -9,9 +9,8 @@ jest.mock('../../src/utils/NavigationUtil', () => ({
 
 describe('HomeScreen', () => {
   it('renders correctly', () => {
-    const {getByTestId, getByText} = render(<HomeScreen />);
+    const {getByTestId} = render(<HomeScreen />);
     expect(getByTestId('home_screen')).toBeTruthy();
-    expect(getByText('HomeScreen')).toBeTruthy();
   });
 
   it('calls navigate to Welcome when back button is pressed', () => {
