@@ -5,10 +5,12 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   tag:
     runs-on: ubuntu-latest
-    if: github.event.pusher.name != 'github-actions[bot]'
 
     steps:
       - name: Checkout code
@@ -27,20 +29,21 @@ jobs:
       - name: Calculate next version
         id: calc_version
         run: |
-          # Nếu chưa có tag thì bắt đầu từ v1.0.0
-          if [ -z "${{ steps.get_latest_tag.outputs.tag }}" ]; then
+          TAG="${{ steps.get_latest_tag.outputs.tag }}"
+          if [ -z "$TAG" ]; then
             NEXT_TAG="v1.0.0"
           else
-            IFS='.' read -r MAJOR MINOR PATCH <<< "${{ steps.get_latest_tag.outputs.tag#v }}"
+            VERSION="${TAG#v}"
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
             PATCH=$((PATCH + 1))
             NEXT_TAG="v$MAJOR.$MINOR.$PATCH"
           fi
           echo "Next tag: $NEXT_TAG"
           echo "next_tag=$NEXT_TAG" >> $GITHUB_OUTPUT
 
-      - name: Create Git Tag
+      - name: Create and push tag
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
           git tag ${{ steps.calc_version.outputs.next_tag }}
           git push origin ${{ steps.calc_version.outputs.next_tag }}
