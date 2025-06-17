@@ -1,0 +1,46 @@
+name: Auto Tag Version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    if: github.event.pusher.name != 'github-actions[bot]'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get latest version tag
+        id: get_latest_tag
+        run: |
+          git fetch --tags
+          TAG=$(git tag --list 'v*' --sort=-v:refname | head -n 1)
+          echo "Latest tag: $TAG"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Calculate next version
+        id: calc_version
+        run: |
+          # Nếu chưa có tag thì bắt đầu từ v1.0.0
+          if [ -z "${{ steps.get_latest_tag.outputs.tag }}" ]; then
+            NEXT_TAG="v1.0.0"
+          else
+            IFS='.' read -r MAJOR MINOR PATCH <<< "${{ steps.get_latest_tag.outputs.tag#v }}"
+            PATCH=$((PATCH + 1))
+            NEXT_TAG="v$MAJOR.$MINOR.$PATCH"
+          fi
+          echo "Next tag: $NEXT_TAG"
+          echo "next_tag=$NEXT_TAG" >> $GITHUB_OUTPUT
+
+      - name: Create Git Tag
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git tag ${{ steps.calc_version.outputs.next_tag }}
+          git push origin ${{ steps.calc_version.outputs.next_tag }}
