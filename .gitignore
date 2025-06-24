@@ -74,3 +74,4 @@ yarn-error.log
 !.yarn/versions
 
 coverage/
+android/playstore_credentials.json

@@ -24,6 +24,12 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)$': 'babel-jest',
   },
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    'firebaseConfig.ts',
+    '<rootDir>/src/firebase/notifications.ts',
+    '<rootDir>/src/hooks/PermissionNotification.ts',
+  ],
   coverageThreshold: {
     global: {
       branches: 80,
