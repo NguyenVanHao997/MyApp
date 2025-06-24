@@ -36,6 +36,15 @@ jobs:
       - name: Install Fastlane
         run: gem install fastlane
 
+      - name: Decrypt keystore
+        run: |
+          gpg --quiet --batch --yes --decrypt \
+            --passphrase="$GPG_PASSPHRASE" \
+            --output android/app/my-release-key.keystore \
+            android/app/my-release-key.keystore.gpg
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
       - name: Decrypt Play Store credentials
         run: |
           gpg --quiet --batch --yes --decrypt \
