@@ -1,0 +1,50 @@
+name: Deploy Android to Google Play (Internal)
+
+on:
+  push:
+    branches:
+      - build # ✅ Trigger khi merge vào nhánh `build`
+
+jobs:
+  build:
+    name: Build & Deploy Android
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+
+      - name: Install Fastlane
+        run: gem install fastlane
+
+      - name: Decrypt Play Store credentials
+        run: |
+          gpg --quiet --batch --yes --decrypt \
+              --passphrase="$GPG_PASSPHRASE" \
+              --output android/playstore_credentials.json \
+              android/playstore_credentials.json.gpg
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Build & Deploy with Fastlane
+        working-directory: android
+        run: fastlane deploy
