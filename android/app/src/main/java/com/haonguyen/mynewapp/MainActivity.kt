@@ -1,4 +1,4 @@
-package com.myapp
+package com.haonguyen.mynewapp;
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

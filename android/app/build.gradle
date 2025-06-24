@@ -77,9 +77,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.myapp"
+    namespace "com.haonguyen.mynewapp"
     defaultConfig {
-        applicationId "com.myapp"
+        applicationId "com.haonguyen.mynewapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -87,6 +87,7 @@ android {
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
+
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -94,15 +95,21 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        dev {
+            storeFile file('my-release-key.keystore')
+            storePassword 'hao.nguyen4'
+            keyAlias 'my-key-alias'
+            keyPassword 'hao.nguyen4'
+        } 
     }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
         }
-        release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+         release {
+            
+            signingConfig signingConfigs.dev
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             proguardFile "${rootProject.projectDir}/../node_modules/detox/android/detox/proguard-rules-app.pro"
@@ -114,8 +121,11 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
+    implementation 'com.google.firebase:firebase-common:21.0.0'
+    implementation 'com.google.firebase:firebase-common-ktx:21.0.0'
     androidTestImplementation('com.wix:detox:+')
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.firebase:firebase-messaging'
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
