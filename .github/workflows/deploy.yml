@@ -19,8 +19,16 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Setup Java
         uses: actions/setup-java@v3
@@ -48,9 +56,9 @@ jobs:
       - name: Decrypt Play Store credentials
         run: |
           gpg --quiet --batch --yes --decrypt \
-              --passphrase="$GPG_PASSPHRASE" \
-              --output android/playstore_credentials.json \
-              android/playstore_credentials.json.gpg
+            --passphrase="$GPG_PASSPHRASE" \
+            --output android/playstore_credentials.json \
+            android/playstore_credentials.json.gpg
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
