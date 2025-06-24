@@ -3,7 +3,7 @@ name: Deploy Android to Google Play (Internal)
 on:
   push:
     branches:
-      - build # ✅ Trigger khi merge vào nhánh `build`
+      - build
 
 jobs:
   build:
