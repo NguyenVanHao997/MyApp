@@ -66,23 +66,30 @@ jobs:
         working-directory: android
         run: fastlane deploy
         # ✅ Gửi thông báo về Discord nếu build thành công
+      - name: Load version info
+        id: version
+        run: |
+          source build_info.env
+          echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
+          echo "BUILD_TIME=$(date '+%d/%m/%Y %H:%M')" >> $GITHUB_ENV
+
       - name: Notify Discord on success
         if: success()
         run: |
           curl -H "Content-Type: application/json" \
             -X POST \
-            -d "{\"content\": \"✅ Build & Deploy thành công cho app \`MyApp\` với version mới 🎉\"}" \
+            -d "{\"content\": \"✅ **Build & Deploy thành công** 🎉\n📦 Version: \`$VERSION_NAME\` (Code: \`$VERSION_CODE\`)\n🕒 Thời gian: $BUILD_TIME\"}" \
             $DISCORD_WEBHOOK
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 
-      # ❌ Gửi thông báo về Discord nếu build thất bại
       - name: Notify Discord on failure
         if: failure()
         run: |
           curl -H "Content-Type: application/json" \
             -X POST \
-            -d "{\"content\": \"❌ Build thất bại cho app \`MyApp\`. Vui lòng kiểm tra CI/CD log! 🔧\"}" \
+            -d "{\"content\": \"❌ **Build thất bại** cho app \`MyApp\`. Vui lòng kiểm tra CI/CD log! 🔧\"}" \
             $DISCORD_WEBHOOK
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}

@@ -43,6 +43,10 @@ platform :android do
           "VERSION_NAME" => version_name
         }
     )
+    File.write("../build_info.env", <<~ENV)
+      VERSION_CODE=#{version_code}
+      VERSION_NAME=#{version_name}
+    ENV
 
   # Đẩy lên Google Play
     upload_to_play_store(
