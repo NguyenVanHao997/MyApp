@@ -43,7 +43,8 @@ platform :android do
           "VERSION_NAME" => version_name
         }
     )
-    build_info_path = File.expand_path("../build_info.env", __dir__)
+    # build_info_path = File.expand_path("../build_info.env", __dir__)
+    build_info_path = File.expand_path("../../build_info.env", __dir__)
     File.write(build_info_path, <<~ENV)
       VERSION_CODE=#{version_code}
       VERSION_NAME=#{version_name}
