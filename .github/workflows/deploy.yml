@@ -76,7 +76,8 @@ jobs:
           source build_info.env
           echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
-          echo "BUILD_TIME=$(date '+%d/%m/%Y %H:%M')" >> $GITHUB_ENV
+          TZ="Asia/Ho_Chi_Minh" date_now=$(date '+%d/%m/%Y %H:%M')
+          echo "BUILD_TIME=$date_now" >> $GITHUB_ENV
 
       - name: Debug version info
         run: |

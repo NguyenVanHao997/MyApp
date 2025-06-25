@@ -32,9 +32,8 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
-  # Tăng versionCode và versionName theo thời gian thực
     version_code = Time.now.to_i # → ví dụ: 1721859558
-    version_name = "1.0.#{Time.now.strftime('%Y%m%d')}"
+    version_name = "1_dev_#{version_code}"
 
     gradle(
         task: "clean bundleRelease",
