@@ -75,3 +75,4 @@ yarn-error.log
 
 coverage/
 android/playstore_credentials.json
+build_info.env

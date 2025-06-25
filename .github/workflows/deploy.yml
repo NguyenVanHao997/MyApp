@@ -70,10 +70,12 @@ jobs:
       - name: Load version info
         id: version
         run: |
-          while IFS='=' read -r key value
-          do
-            echo "$key=$value" >> $GITHUB_ENV
-          done < build_info.env
+          echo "🔍 Current directory: $(pwd)"
+          ls -la
+          cat build_info.env || echo "❌ build_info.env not found!"
+          source build_info.env
+          echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
           echo "BUILD_TIME=$(date '+%d/%m/%Y %H:%M')" >> $GITHUB_ENV
 
       - name: Debug version info
