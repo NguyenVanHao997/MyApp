@@ -102,8 +102,8 @@ jobs:
         run: |
           curl -H "Content-Type: application/json" \
             -X POST \
-            -d "{\"content\": \"✅ **Build & Deploy thành công** 🎉\n📦 Version: \`$VERSION_NAME\` (Code: \`$VERSION_CODE\`)\n🕒 Lúc: $BUILD_TIME\"}" \
-            "$DISCORD_WEBHOOK"
+            -d "{\"content\": \"✅ **Build & Deploy thành công** 🎉\n📦 Version: \`$VERSION_NAME\` (Code: \`$VERSION_CODE\`)\n🕒 Lúc: $BUILD_TIME\n🔗 [Tải từ Google Play (internal)](https://play.google.com/apps/internaltest/4701623151226419688)\"}" \
+            $DISCORD_WEBHOOK
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Notify Discord on failure
