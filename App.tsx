@@ -12,6 +12,24 @@ import {
   listenToForegroundNotifications,
   setupFCM,
 } from './src/firebase/notifications';
+import * as Sentry from '@sentry/react-native';
+import {VERSION_CODE} from './src/build_info';
+
+Sentry.init({
+  dsn: 'https://3f97d227a0f0d01dae318f53bfff85a5@o4509557492482048.ingest.us.sentry.io/4509557494644736',
+  sendDefaultPii: true,
+
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1,
+  integrations: [
+    Sentry.mobileReplayIntegration(),
+    Sentry.feedbackIntegration(),
+  ],
+  release: `myapp@dev_${VERSION_CODE}`,
+  dist: `${VERSION_CODE}`,
+  environment: 'development',
+});
+
 const App = () => {
   useEffect(() => {
     const init = async () => {
@@ -42,4 +60,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Sentry.wrap(App);

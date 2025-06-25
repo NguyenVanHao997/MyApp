@@ -2,8 +2,12 @@
 import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {navigate} from '../utils/NavigationUtil';
+import {useScreenPerformanceTracking} from '../hooks/useScreenPerformanceTracking';
 
 const WelcomeScreen = () => {
+  const loadTime = useScreenPerformanceTracking({
+    screenName: 'welcome_screen',
+  });
   return (
     <View testID="welcome">
       <View testID="button_navigate_home">
@@ -31,6 +35,7 @@ const WelcomeScreen = () => {
         </TouchableOpacity>
       </View>
       <Text>WelcomeScreen</Text>
+      {loadTime !== null ? <Text>⏱ Dev Load: {loadTime}ms</Text> : null}
     </View>
   );
 };
