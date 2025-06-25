@@ -5,7 +5,11 @@ import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {loginSchema} from '../utils/loginSchema';
 import {navigate} from '../utils/NavigationUtil';
+import {useScreenPerformanceTracking} from '../hooks/useScreenPerformanceTracking';
 const LoginScreen = () => {
+  const loadTime = useScreenPerformanceTracking({
+    screenName: 'login_screen',
+  });
   const {
     control,
     handleSubmit,
@@ -117,6 +121,7 @@ const LoginScreen = () => {
           </View>
         </View>
       )}
+      {loadTime !== null ? <Text>⏱ Dev Load: {loadTime}ms</Text> : null}
     </View>
   );
 };
