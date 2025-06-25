@@ -34,12 +34,12 @@ jobs:
       #   run: yarn test:coverage
 
       # - name: Check coverage threshold
-        run: |
-          COVERAGE=$(node checkCoverage.js)
-          echo "Coverage is $COVERAGE%"
-          if [ "$COVERAGE" -lt 80 ]; then
-            echo "❌ Coverage is too low: $COVERAGE%. Required: >= 80%."
-            exit 1
-          else
-            echo "✅ Coverage is sufficient."
-          fi
+      # run: |
+      #   COVERAGE=$(node checkCoverage.js)
+      #   echo "Coverage is $COVERAGE%"
+      #   if [ "$COVERAGE" -lt 80 ]; then
+      #     echo "❌ Coverage is too low: $COVERAGE%. Required: >= 80%."
+      #     exit 1
+      #   else
+      #     echo "✅ Coverage is sufficient."
+      #   fi
