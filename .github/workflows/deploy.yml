@@ -90,12 +90,20 @@ jobs:
           echo "VERSION_CODE=$VERSION_CODE"
           echo "BUILD_TIME=$BUILD_TIME"
 
+      # - name: Capture error if failed
+      #   if: failure()
+      #   run: |
+      #     echo "ERROR_MESSAGE<<EOF" >> $GITHUB_ENV
+      #     tail -n 50 fastlane_build_log.txt >> $GITHUB_ENV
+      #     echo "EOF" >> $GITHUB_ENV
       - name: Capture error if failed
         if: failure()
         run: |
-          echo "ERROR_MESSAGE<<EOF" >> $GITHUB_ENV
-          tail -n 50 fastlane_build_log.txt >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          if [ -f fastlane_build_log.txt ]; then
+            echo "ERROR_MESSAGE=$(tail -n 50 fastlane_build_log.txt | tr '\n' ' ')" >> $GITHUB_ENV
+          else
+            echo "ERROR_MESSAGE=Không tìm thấy file log." >> $GITHUB_ENV
+          fi
 
       - name: Notify Discord on success
         if: success()
