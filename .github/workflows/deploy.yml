@@ -65,3 +65,24 @@ jobs:
       - name: Build & Deploy with Fastlane
         working-directory: android
         run: fastlane deploy
+        # ✅ Gửi thông báo về Discord nếu build thành công
+      - name: Notify Discord on success
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+            -X POST \
+            -d "{\"content\": \"✅ Build & Deploy thành công cho app \`MyApp\` với version mới 🎉\"}" \
+            $DISCORD_WEBHOOK
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+
+      # ❌ Gửi thông báo về Discord nếu build thất bại
+      - name: Notify Discord on failure
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+            -X POST \
+            -d "{\"content\": \"❌ Build thất bại cho app \`MyApp\`. Vui lòng kiểm tra CI/CD log! 🔧\"}" \
+            $DISCORD_WEBHOOK
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
