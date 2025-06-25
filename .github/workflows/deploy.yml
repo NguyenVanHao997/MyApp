@@ -65,14 +65,23 @@ jobs:
       - name: Build & Deploy with Fastlane
         working-directory: android
         run: fastlane deploy
+
         # ✅ Gửi thông báo về Discord nếu build thành công
       - name: Load version info
         id: version
         run: |
-          source build_info.env
-          echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
-          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
+          while IFS='=' read -r key value
+          do
+            echo "$key=$value" >> $GITHUB_ENV
+          done < build_info.env
           echo "BUILD_TIME=$(date '+%d/%m/%Y %H:%M')" >> $GITHUB_ENV
+
+      - name: Debug version info
+        run: |
+          echo "VERSION_NAME=$VERSION_NAME"
+          echo "VERSION_CODE=$VERSION_CODE"
+          echo "BUILD_TIME=$BUILD_TIME"
+
       - name: Capture error if failed
         if: failure()
         run: |
@@ -86,13 +95,9 @@ jobs:
           curl -H "Content-Type: application/json" \
             -X POST \
             -d "{\"content\": \"✅ **Build & Deploy thành công** 🎉\n📦 Version: \`$VERSION_NAME\` (Code: \`$VERSION_CODE\`)\n🕒 Lúc: $BUILD_TIME\"}" \
-            $DISCORD_WEBHOOK
+            "$DISCORD_WEBHOOK"
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          VERSION_NAME: ${{ env.VERSION_NAME }}
-          VERSION_CODE: ${{ env.VERSION_CODE }}
-          BUILD_TIME: ${{ env.BUILD_TIME }}
-
       - name: Notify Discord on failure
         if: failure()
         run: |
@@ -102,7 +107,3 @@ jobs:
             $DISCORD_WEBHOOK
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          VERSION_NAME: ${{ env.VERSION_NAME }}
-          VERSION_CODE: ${{ env.VERSION_CODE }}
-          BUILD_TIME: ${{ env.BUILD_TIME }}
-          ERROR_MESSAGE: ${{ env.ERROR_MESSAGE }}

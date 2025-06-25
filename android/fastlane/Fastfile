@@ -43,11 +43,11 @@ platform :android do
           "VERSION_NAME" => version_name
         }
     )
-    File.write("../build_info.env", <<~ENV)
+    build_info_path = File.expand_path("../build_info.env", __dir__)
+    File.write(build_info_path, <<~ENV)
       VERSION_CODE=#{version_code}
       VERSION_NAME=#{version_name}
     ENV
-
   # Đẩy lên Google Play
     upload_to_play_store(
       track: "internal",
