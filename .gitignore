@@ -77,3 +77,4 @@ coverage/
 android/playstore_credentials.json
 build_info.env
 your-credentials.json
+fingerprint.json

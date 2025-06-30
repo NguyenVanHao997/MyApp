@@ -88,7 +88,7 @@ const WrappedApp = HotUpdater.wrap({
   source: getUpdateSource(
     'https://hot-updater-e4nrvxfcuq-as.a.run.app/api/check-update',
     {
-      updateStrategy: 'appVersion',
+      updateStrategy: 'fingerprint',
     },
   ),
   requestHeaders: {
