@@ -100,7 +100,6 @@ const WrappedApp = HotUpdater.wrap({
       style={{
         flex: 1,
         padding: 20,
-        borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
