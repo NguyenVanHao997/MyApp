@@ -39,7 +39,7 @@ const LoginScreen = () => {
   return (
     <View testID="login_screen">
       <TouchableOpacity
-        onPress={() => navigate('Welcome')}
+        onPress={() => navigate('welcome')}
         testID="go_back_home">
         <Text>Back</Text>
       </TouchableOpacity>

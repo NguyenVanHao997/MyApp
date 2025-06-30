@@ -1,11 +1,27 @@
-import {PermissionsAndroid, Platform} from 'react-native';
+import {Alert, Linking} from 'react-native';
+import notifee, {AuthorizationStatus} from '@notifee/react-native';
 
 export const requestNotificationPermission = async () => {
-  if (Platform.OS === 'android' && Platform.Version >= 33) {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
-    );
-    return granted === PermissionsAndroid.RESULTS.GRANTED;
+  const settings = await notifee.requestPermission();
+
+  if (settings.authorizationStatus === AuthorizationStatus.AUTHORIZED) {
+    console.log('✅ Notification permission granted');
+    return true;
   }
-  return true;
+
+  if (settings.authorizationStatus === AuthorizationStatus.DENIED) {
+    Alert.alert(
+      'Bạn đã từ chối quyền thông báo',
+      'Vui lòng vào Cài đặt để bật lại quyền thông báo.',
+      [
+        {
+          text: 'Mở Cài đặt',
+          onPress: () => Linking.openSettings(),
+        },
+        {text: 'Đóng', style: 'cancel'},
+      ],
+    );
+  }
+
+  return false;
 };

@@ -3,6 +3,10 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {navigate} from '../utils/NavigationUtil';
 import {useScreenPerformanceTracking} from '../hooks/useScreenPerformanceTracking';
+import DeviceInfo from 'react-native-device-info';
+
+// You can replace the value below with your actual app version or import it from a config file
+const __APP_VERSION__ = DeviceInfo.getVersion();
 
 const WelcomeScreen = () => {
   const loadTime = useScreenPerformanceTracking({
@@ -36,6 +40,7 @@ const WelcomeScreen = () => {
       </View>
       <Text>WelcomeScreen</Text>
       {loadTime !== null ? <Text>⏱ Dev Load: {loadTime}ms</Text> : null}
+      <Text>version : {__APP_VERSION__}</Text>
     </View>
   );
 };

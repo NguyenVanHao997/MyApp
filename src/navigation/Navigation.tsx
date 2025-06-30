@@ -17,11 +17,23 @@ export const navigationRef = createNavigationContainerRef();
 
 const Navigation = () => {
   const routeNameRef = useRef<string | undefined>(undefined);
+  const linking = {
+    prefixes: ['mynewapp://'],
+    config: {
+      screens: {
+        welcome: 'welcome',
+        login: 'login',
+        home: 'home',
+      },
+    },
+  };
 
   return (
     <View style={{flex: 1}}>
       <NavigationContainer
+        linking={linking}
         onReady={() => {
+          console.log('🚀 Navigation ready');
           routeNameRef.current = navigationRef.current
             ? navigationRef.current.getCurrentRoute()?.name
             : undefined;
@@ -39,11 +51,11 @@ const Navigation = () => {
           routeNameRef.current = currentRoute;
         }}>
         <Stack.Navigator
-          initialRouteName="Welcome"
+          initialRouteName="welcome"
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen name="welcome" component={WelcomeScreen} />
           <Stack.Screen name="home" component={HomeScreen} />
           <Stack.Screen name="login" component={LoginScreen} />
         </Stack.Navigator>

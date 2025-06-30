@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyApp</string>
+    <string name="hot_updater_fingerprint_hash" moduleConfig="true">506f5e8c63ae6a5cc4afe10ee50180b4d46be309</string>
 </resources>
