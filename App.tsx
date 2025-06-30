@@ -19,7 +19,7 @@ import {
 import {handleIncomingMessage} from './src/services/notificationService';
 import {setupFCM} from './src/firebase/notifications';
 import {HotUpdater, getUpdateSource} from '@hot-updater/react-native';
-import {Text, View} from 'react-native';
+import {ActivityIndicator, Text, View} from 'react-native';
 
 Sentry.init({
   dsn: 'https://3f97d227a0f0d01dae318f53bfff85a5@o4509557492482048.ingest.us.sentry.io/4509557494644736',
@@ -88,11 +88,14 @@ const WrappedApp = HotUpdater.wrap({
   source: getUpdateSource(
     'https://hot-updater-e4nrvxfcuq-as.a.run.app/api/check-update',
     {
-      updateStrategy: 'fingerprint',
+      updateStrategy: 'appVersion',
     },
   ),
   requestHeaders: {
     // if you want to use the request headers, you can add them here
+  },
+  onUpdateProcessCompleted: () => {
+    // if you want to do something after the update, you can do it here
   },
 
   fallbackComponent: ({progress, status}) => (
@@ -105,15 +108,17 @@ const WrappedApp = HotUpdater.wrap({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
       }}>
       {/* You can put a splash image here. */}
-
-      <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
-        {status === 'UPDATING' ? 'Updating...' : 'Checking for Update...'}
-      </Text>
-      {progress > 0 ? (
+      <View style={{alignItems: 'center'}}>
+        <ActivityIndicator color="white" size="large" />
         <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
-          {Math.round(progress * 100)}%
+          {status === 'UPDATING' ? 'Updating...' : 'Checking for Update...'}
         </Text>
-      ) : null}
+        {progress > 0 ? (
+          <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
+            {Math.round(progress * 100)}%
+          </Text>
+        ) : null}
+      </View>
     </View>
   ),
 })(App);
