@@ -1,5 +1,5 @@
 var __BUNDLE_START_TIME__=this.nativePerformanceNow?nativePerformanceNow():Date.now(),__DEV__=false,process=this.process||{},__METRO_GLOBAL_PREFIX__='';process.env=process.env||{};process.env.NODE_ENV=process.env.NODE_ENV||"production";
-var _sentryDebugIds,_sentryDebugIdIdentifier;void 0===_sentryDebugIds&&(_sentryDebugIds={});try{var stack=(new Error).stack;stack&&(_sentryDebugIds[stack]="1ed65ef8-9478-40e4-9a4b-f7981d1e6b88",_sentryDebugIdIdentifier="sentry-dbid-1ed65ef8-9478-40e4-9a4b-f7981d1e6b88")}catch(e){}
+var _sentryDebugIds,_sentryDebugIdIdentifier;void 0===_sentryDebugIds&&(_sentryDebugIds={});try{var stack=(new Error).stack;stack&&(_sentryDebugIds[stack]="9d680568-7e28-4cf4-9a54-a318e9ca0891",_sentryDebugIdIdentifier="sentry-dbid-9d680568-7e28-4cf4-9a54-a318e9ca0891")}catch(e){}
 (function (global) {
   "use strict";
 
@@ -56815,6 +56815,8 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
           children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_reactNative3.ActivityIndicator, {
             color: "white",
             size: "large"
+          }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_reactNative3.Text, {
+            children: "123"
           }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_reactNative3.Text, {
             style: {
               color: 'white',
@@ -119060,7 +119062,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   var _NativeHotUpdater = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[3]));
   var NIL_UUID = "00000000-0000-0000-0000-000000000000";
   var HotUpdaterConstants = exports.HotUpdaterConstants = {
-    HOT_UPDATER_BUNDLE_ID: "0197e950-cf22-710b-9367-8a9f55359477"
+    HOT_UPDATER_BUNDLE_ID: "0197e9a5-6ac4-7977-a085-3d4c5b648c29"
   };
   var addListener = exports.addListener = function addListener(eventName, listener) {
     var eventEmitter = new _reactNative.NativeEventEmitter(_NativeHotUpdater.default);
@@ -152893,4 +152895,4 @@ __d(function(global, require, _importDefaultUnused, _importAllUnused, module, ex
 },1236,[]);
 __r(62);
 __r(0);
-//# debugId=1ed65ef8-9478-40e4-9a4b-f7981d1e6b88
+//# debugId=9d680568-7e28-4cf4-9a54-a318e9ca0891

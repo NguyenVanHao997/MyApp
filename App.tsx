@@ -88,7 +88,7 @@ const WrappedApp = HotUpdater.wrap({
   source: getUpdateSource(
     'https://hot-updater-e4nrvxfcuq-as.a.run.app/api/check-update',
     {
-      updateStrategy: 'appVersion',
+      updateStrategy: 'fingerprint',
     },
   ),
   requestHeaders: {
@@ -110,6 +110,7 @@ const WrappedApp = HotUpdater.wrap({
       {/* You can put a splash image here. */}
       <View style={{alignItems: 'center'}}>
         <ActivityIndicator color="white" size="large" />
+        <Text>123</Text>
         <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
           {status === 'UPDATING' ? 'Updating...' : 'Checking for Update...'}
         </Text>
