@@ -21,14 +21,18 @@ const WelcomeScreen = () => {
       try {
         const info = await HotUpdater.checkForUpdate({
           source:
-            'https://hot-updater-e4nrvxfcuq-as.a.run.app/api/check-update', // ← thay bằng URL của bạn
+            'https://hot-updater-e4nrvxfcuq-as.a.run.app/api/check-update',
         });
+        const getAppVersion = await HotUpdater.getAppVersion();
+        const getBundleId = await HotUpdater.getBundleId();
+        console.log('>>>>>info', info, getAppVersion, getBundleId);
+        setTargetVersion(getAppVersion);
 
-        if (info?.target_app_version) {
-          setTargetVersion(info.target_app_version);
-        } else {
-          setTargetVersion(null);
-        }
+        // if (info?.target_app_version) {
+        //   setTargetVersion(info.target_app_version);
+        // } else {
+        //   setTargetVersion(null);
+        // }
       } catch (error) {
         console.log('❌ Error checking for update:', error);
         setTargetVersion(null);
@@ -75,7 +79,7 @@ const WelcomeScreen = () => {
       </View>
       <Text>WelcomeScreen</Text>
       {loadTime !== null ? <Text>⏱ Dev Load: {loadTime}ms</Text> : null}
-      <Text>version : {targetVersion}</Text>
+      <Text>version : {targetVersion || __APP_VERSION__}</Text>
     </View>
   );
 };

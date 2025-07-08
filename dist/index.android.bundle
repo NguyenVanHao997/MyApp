@@ -1,5 +1,5 @@
 var __BUNDLE_START_TIME__=this.nativePerformanceNow?nativePerformanceNow():Date.now(),__DEV__=false,process=this.process||{},__METRO_GLOBAL_PREFIX__='';process.env=process.env||{};process.env.NODE_ENV=process.env.NODE_ENV||"production";
-var _sentryDebugIds,_sentryDebugIdIdentifier;void 0===_sentryDebugIds&&(_sentryDebugIds={});try{var stack=(new Error).stack;stack&&(_sentryDebugIds[stack]="6bbcb676-b7b6-4fc6-b283-a0409cec8650",_sentryDebugIdIdentifier="sentry-dbid-6bbcb676-b7b6-4fc6-b283-a0409cec8650")}catch(e){}
+var _sentryDebugIds,_sentryDebugIdIdentifier;void 0===_sentryDebugIds&&(_sentryDebugIds={});try{var stack=(new Error).stack;stack&&(_sentryDebugIds[stack]="1ed65ef8-9478-40e4-9a4b-f7981d1e6b88",_sentryDebugIdIdentifier="sentry-dbid-1ed65ef8-9478-40e4-9a4b-f7981d1e6b88")}catch(e){}
 (function (global) {
   "use strict";
 
@@ -56789,7 +56789,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   };
   var WrappedApp = _$$_REQUIRE(_dependencyMap[19]).HotUpdater.wrap({
     source: (0, _$$_REQUIRE(_dependencyMap[19]).getUpdateSource)('https://hot-updater-e4nrvxfcuq-as.a.run.app/api/check-update', {
-      updateStrategy: 'fingerprint'
+      updateStrategy: 'appVersion'
     }),
     requestHeaders: {
       // if you want to use the request headers, you can add them here
@@ -118572,13 +118572,18 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
         var _ref = (0, _asyncToGenerator2.default)(function* () {
           try {
             var info = yield _$$_REQUIRE(_dependencyMap[8]).HotUpdater.checkForUpdate({
-              source: 'https://hot-updater-e4nrvxfcuq-as.a.run.app/api/check-update' // ← thay bằng URL của bạn
+              source: 'https://hot-updater-e4nrvxfcuq-as.a.run.app/api/check-update'
             });
-            if (info != null && info.target_app_version) {
-              setTargetVersion(info.target_app_version);
-            } else {
-              setTargetVersion(null);
-            }
+            var getAppVersion = yield _$$_REQUIRE(_dependencyMap[8]).HotUpdater.getAppVersion();
+            var getBundleId = yield _$$_REQUIRE(_dependencyMap[8]).HotUpdater.getBundleId();
+            console.log('>>>>>info', info, getAppVersion, getBundleId);
+            setTargetVersion(getAppVersion);
+
+            // if (info?.target_app_version) {
+            //   setTargetVersion(info.target_app_version);
+            // } else {
+            //   setTargetVersion(null);
+            // }
           } catch (error) {
             console.log('❌ Error checking for update:', error);
             setTargetVersion(null);
@@ -118647,7 +118652,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
       }), loadTime !== null ? /*#__PURE__*/(0, _jsxRuntime.jsxs)(_reactNative.Text, {
         children: ["\u23F1 Dev Load: ", loadTime, "ms"]
       }) : null, /*#__PURE__*/(0, _jsxRuntime.jsxs)(_reactNative.Text, {
-        children: ["version : ", targetVersion]
+        children: ["version : ", targetVersion || __APP_VERSION__]
       })]
     });
   };
@@ -119055,7 +119060,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   var _NativeHotUpdater = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[3]));
   var NIL_UUID = "00000000-0000-0000-0000-000000000000";
   var HotUpdaterConstants = exports.HotUpdaterConstants = {
-    HOT_UPDATER_BUNDLE_ID: "0197c095-a6a3-7fdc-b467-ca88b09774c9"
+    HOT_UPDATER_BUNDLE_ID: "0197e950-cf22-710b-9367-8a9f55359477"
   };
   var addListener = exports.addListener = function addListener(eventName, listener) {
     var eventEmitter = new _reactNative.NativeEventEmitter(_NativeHotUpdater.default);
@@ -152888,4 +152893,4 @@ __d(function(global, require, _importDefaultUnused, _importAllUnused, module, ex
 },1236,[]);
 __r(62);
 __r(0);
-//# debugId=6bbcb676-b7b6-4fc6-b283-a0409cec8650
+//# debugId=1ed65ef8-9478-40e4-9a4b-f7981d1e6b88

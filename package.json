@@ -35,6 +35,7 @@
     "@react-native-firebase/analytics": "22.2.1",
     "@react-native-firebase/app": "22.2.1",
     "@react-native-firebase/messaging": "^22.2.1",
+    "@react-native-firebase/remote-config": "^22.2.1",
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^7.1.10",
