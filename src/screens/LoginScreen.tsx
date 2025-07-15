@@ -40,7 +40,8 @@ const LoginScreen = () => {
     <View testID="login_screen">
       <TouchableOpacity
         onPress={() => navigate('welcome')}
-        testID="go_back_home">
+        testID="go_back_home"
+        accessibilityLabel="go_back_home">
         <Text>Back</Text>
       </TouchableOpacity>
 
@@ -67,6 +68,7 @@ const LoginScreen = () => {
                 <>
                   <TextInput
                     testID="email_input"
+                    accessibilityLabel="email_input"
                     onChangeText={onChange}
                     value={value}
                     autoCapitalize="none"
@@ -94,6 +96,7 @@ const LoginScreen = () => {
                 <>
                   <TextInput
                     testID="password_input"
+                    accessibilityLabel="password_input"
                     onChangeText={onChange}
                     value={value}
                     secureTextEntry
@@ -115,6 +118,7 @@ const LoginScreen = () => {
             {/* Submit Button */}
             <TouchableOpacity
               testID="submit_button"
+              accessibilityLabel="submit_button"
               onPress={handleSubmit(onSubmit)}>
               <Text>Login</Text>
             </TouchableOpacity>

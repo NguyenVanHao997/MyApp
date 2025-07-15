@@ -56,6 +56,7 @@ const WelcomeScreen = () => {
       <View testID="button_navigate_home">
         <TouchableOpacity
           testID="press_to_home"
+          accessibilityLabel="press_to_home"
           style={{borderWidth: 1, marginBottom: 12}}
           onPress={() => {
             navigate('home');
@@ -68,6 +69,7 @@ const WelcomeScreen = () => {
       <View testID="button_navigate_login">
         <TouchableOpacity
           testID="press_to_login"
+          accessibilityLabel="press_to_login"
           style={{borderWidth: 1, marginBottom: 12}}
           onPress={() => {
             navigate('login');
