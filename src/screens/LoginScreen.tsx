@@ -5,7 +5,11 @@ import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {loginSchema} from '../utils/loginSchema';
 import {navigate} from '../utils/NavigationUtil';
+import {useScreenPerformanceTracking} from '../hooks/useScreenPerformanceTracking';
 const LoginScreen = () => {
+  const loadTime = useScreenPerformanceTracking({
+    screenName: 'login_screen',
+  });
   const {
     control,
     handleSubmit,
@@ -35,8 +39,9 @@ const LoginScreen = () => {
   return (
     <View testID="login_screen">
       <TouchableOpacity
-        onPress={() => navigate('Welcome')}
-        testID="go_back_home">
+        onPress={() => navigate('welcome')}
+        testID="go_back_home"
+        accessibilityLabel="go_back_home">
         <Text>Back</Text>
       </TouchableOpacity>
 
@@ -63,6 +68,7 @@ const LoginScreen = () => {
                 <>
                   <TextInput
                     testID="email_input"
+                    accessibilityLabel="email_input"
                     onChangeText={onChange}
                     value={value}
                     autoCapitalize="none"
@@ -90,6 +96,7 @@ const LoginScreen = () => {
                 <>
                   <TextInput
                     testID="password_input"
+                    accessibilityLabel="password_input"
                     onChangeText={onChange}
                     value={value}
                     secureTextEntry
@@ -111,12 +118,14 @@ const LoginScreen = () => {
             {/* Submit Button */}
             <TouchableOpacity
               testID="submit_button"
+              accessibilityLabel="submit_button"
               onPress={handleSubmit(onSubmit)}>
               <Text>Login</Text>
             </TouchableOpacity>
           </View>
         </View>
       )}
+      {loadTime !== null ? <Text>⏱ Dev Load: {loadTime}ms</Text> : null}
     </View>
   );
 };

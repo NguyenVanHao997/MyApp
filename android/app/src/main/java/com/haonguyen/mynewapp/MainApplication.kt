@@ -11,7 +11,7 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
 import com.haonguyen.mynewapp.BuildConfig
-
+import com.hotupdater.HotUpdater 
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
@@ -28,6 +28,9 @@ class MainApplication : Application(), ReactApplication {
 
         override val isNewArchEnabled: Boolean = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED
         override val isHermesEnabled: Boolean = BuildConfig.IS_HERMES_ENABLED
+          override fun getJSBundleFile(): String? {  
+          return HotUpdater.getJSBundleFile(applicationContext)  
+        }  
       }
 
   override val reactHost: ReactHost

@@ -1,4 +1,4 @@
-package com.myapp; 
+package com.haonguyen.mynewapp;
 
 import com.wix.detox.Detox;
 import com.wix.detox.config.DetoxConfig;
